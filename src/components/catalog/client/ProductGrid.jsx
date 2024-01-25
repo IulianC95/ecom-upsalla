@@ -1,32 +1,39 @@
-import Image from "next/image";
-import { useEffect, useState } from "react";
+
+import { useProducts } from "@/hooks";
+import { ProductTile } from ".";
+import { css } from "@emotion/css";
+
+let cache = [];
 
 export const ProductGrid = () => {
-  const [products, setProducts] = useState([]);
+ const {products, loading} = useProducts();
+  const itemsPerRow = 2;
 
-  useEffect(() => {
-    // fetch returns a promise
-    fetch("https://fakestoreapi.com/products")
-      .then((response) => {
-        // response.json() returns a promise
-        return response.json();
-      })
-      .then((products) => {
-        console.log(products);
-        setProducts(products)
-      });
-  }, []);
+  
+
+  const gridCssClass = css`
+    display: grid;
+    row-gap: 32px;
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(${itemsPerRow}, 1fr);
+    }
+  `;
+
+  if (loading) {
+    return <div className="container mx-auto px-4"></div>
+  }
+
   return (
-    <ul>
+    <ul className={gridCssClass}>
       {products.map((product) => {
-        const { price, title, image, id } = product;
+        const { id } = product;
 
-        return <li key={id}>
-            <h1>{title}</h1>
-            <p>{price}</p>
-
-            <Image src={image} width={200} height={200} objectFit="contain" alt={title}></Image>
-        </li>;
+        return (
+          <li key={id}>
+            <ProductTile product={product}></ProductTile>
+          </li>
+        );
       })}
     </ul>
   );

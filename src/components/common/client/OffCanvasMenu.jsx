@@ -31,8 +31,8 @@ export const OffCanvasMenu = () => {
           </li>
 
           <li>
-            <Link href="/" title="Home">
-              Home
+            <Link href="/contact" title="Contact">
+              Contact
             </Link>
           </li>
         </ul>
