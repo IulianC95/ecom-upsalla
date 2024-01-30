@@ -1,10 +1,16 @@
-import Link from "next/link";
-import { useState } from "react";
-import { CgMenu } from "react-icons/cg";
-import { IoClose } from "react-icons/io5";
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { CgMenu } from 'react-icons/cg';
+import { IoClose } from 'react-icons/io5';
 
 export const OffCanvasMenu = () => {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <>
@@ -21,7 +27,7 @@ export const OffCanvasMenu = () => {
 
       <nav
         className={`${
-          open ? "translate-y-full" : ""
+          open ? 'translate-y-full' : ''
         } bg-neutral-900 transition-transform transform-gpu text-white w-dvw h-dvh fixed left-0 -top-full z-0 lg:w-1/3`}
       >
         <ul className="lg:pl-24 gap-y-5 uppercase flex flex-col justify-center items-center lg:items-start h-full text-3xl">
