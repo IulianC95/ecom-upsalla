@@ -1,15 +1,19 @@
-
 import { useProducts } from "@/hooks";
 import { ProductTile } from ".";
 import { css } from "@emotion/css";
 
+const Spinner = () => (
+  <div className="flex justify-center items-center h-screen">
+    <p className="loader"></p>
+  </div>
+);
+
 let cache = [];
 
 export const ProductGrid = () => {
- const {products, loading} = useProducts();
-  const itemsPerRow = 2;
+  const { products, loading } = useProducts();
 
-  
+  const itemsPerRow = 2;
 
   const gridCssClass = css`
     display: grid;
@@ -21,7 +25,7 @@ export const ProductGrid = () => {
   `;
 
   if (loading) {
-    return <div className="container mx-auto px-4"></div>
+    return <Spinner />;
   }
 
   return (

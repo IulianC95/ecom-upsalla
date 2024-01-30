@@ -1,12 +1,28 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FaRegStar, FaStar, FaStarHalfAlt} from "react-icons/fa";
+
 
 export const ProductTile = (props) => {
     const {product} = props;
 
-    const {title, image: imageUrl, price, id} = product;
+    const {title, image: imageUrl, price, id, rating} = product;
 
     const productUrl = `/products/${id}`
+
+    const renderRating = (rating) => {
+        const fullStars = Math.floor(rating.rate);
+        const halfStar = rating.rate % 1 > 0.5 ? 1 : 0;
+        const emptyStars = 5 - fullStars - halfStar;
+
+        return (
+            <div className="flex justify-center text-orange-400">
+            {Array(fullStars).fill(<FaStar />)}
+            {halfStar ? <FaStarHalfAlt /> : ''}
+            {Array(emptyStars).fill(<FaRegStar />)}
+        </div>
+        );
+    };
 
     return <article className="text-center">
         <header>
@@ -20,11 +36,14 @@ export const ProductTile = (props) => {
         </header>
 
         <section>
-            {/* product price */}
+            <div className="text-zinc-900 font-light">${price}</div>
+        </section>
+        <section>
+            <div className="text-zinc-900 font-light"> {renderRating(rating)}</div>
         </section>
 
         <footer>
-            {/* add to cart homework */}
+           <button className="bg-black text-white uppercase font-medium text-sm my-1 py-3 px-6 hover:bg-amber-600 transition-colors">Add to cart</button>
         </footer>
     </article>
 }

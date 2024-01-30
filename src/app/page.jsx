@@ -1,4 +1,5 @@
 import { ProductGrid } from "@/components/catalog/client";
+import React from 'react';
 
 export default function Home() {
   return (
