@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
+import { baseUrl } from '..';
 
+// the naivest cache
 let cache = [];
 
 export const useProducts = () => {
@@ -10,7 +12,7 @@ export const useProducts = () => {
   useEffect(() => {
     if (cache.length === 0) {
       // fetch returns a promise
-      fetch('https://fakestoreapi.com/products')
+      fetch(`${baseUrl}/products`)
         .then((response) => {
           // response.json() returns a promise
           return response.json();
