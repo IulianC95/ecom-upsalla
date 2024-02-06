@@ -1,5 +1,9 @@
 import { CartControls } from '@/components/cart/client';
-import { GridControls, ProductGrid } from '@/components/catalog/client';
+import {
+  GridControls,
+  Pagination,
+  ProductGrid,
+} from '@/components/catalog/client';
 import React from 'react';
 
 export default function Home() {
@@ -12,6 +16,7 @@ export default function Home() {
 
       <section>
         <ProductGrid></ProductGrid>
+        <Pagination></Pagination>
       </section>
 
       <section></section>
