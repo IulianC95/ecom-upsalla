@@ -2,12 +2,13 @@ import { uiContext } from '@/contexts';
 import { useContext } from 'react';
 
 const buttonClasses =
-  'hidden lg:flex justify-center items-center border-l border-zinc-200 w-20 h-20 transition-colors hover:bg-neutral-900 hover:text-white';
+  'flex justify-center items-center border-l border-zinc-200 w-20 h-20 transition-colors hover:bg-neutral-900 hover:text-white';
 
 export const GridControls = () => {
   const { itemsPerRow, setItemsPerRow } = useContext(uiContext);
+
   return (
-    <ul className="border border-zinc-200 flex">
+    <ul className="border  border-zinc-200 hidden lg:flex">
       <li>
         <button
           type="button"

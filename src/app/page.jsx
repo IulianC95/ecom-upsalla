@@ -4,7 +4,6 @@ import {
   Pagination,
   ProductGrid,
 } from '@/components/catalog/client';
-import React from 'react';
 
 export default function Home() {
   return (
@@ -15,7 +14,10 @@ export default function Home() {
       </header>
 
       <section>
+        <Pagination></Pagination>
+
         <ProductGrid></ProductGrid>
+
         <Pagination></Pagination>
       </section>
 

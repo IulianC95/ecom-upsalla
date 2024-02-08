@@ -24,15 +24,16 @@ export const Pagination = () => {
   return (
     <ul className="flex gap-2">
       {Array(pageCount)
-        .fill('')
+        .fill(' ')
         .map((_, index) => {
           const pageIndex = index + 1;
+
           return (
             <li key={index}>
               <button
                 type="button"
                 title={`Page ${pageIndex}`}
-                className={`border border-zinc-200 p-2 hover:bg-black hover:text-white ${
+                className={`border border-zinc-200 p-2 hover:bg-black hover:text-white transition-colors ${
                   pageIndex === page ? 'bg-black text-white' : ''
                 }`}
                 onClick={() => {

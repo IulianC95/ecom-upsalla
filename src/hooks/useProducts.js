@@ -20,15 +20,18 @@ export const useProducts = () => {
         .then((products) => {
           cache = products;
           setProducts(products);
+
           setLoading(false);
         })
         .catch((error) => {
           console.dir(error);
           setLoading(false);
+
           setError('An error has occured');
         });
     } else {
       setProducts(cache);
+
       setLoading(false);
     }
   }, []);
