@@ -1,4 +1,4 @@
-import BackToTop from "@/components/common/client/BackToTop";
+import BackToTop from '@/components/common/client/BackToTop';
 
 export const Separator = ({ children }) => {
   return (

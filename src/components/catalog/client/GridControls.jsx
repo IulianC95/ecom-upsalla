@@ -1,5 +1,7 @@
 import { uiContext } from '@/contexts';
 import { useContext } from 'react';
+import { LiaSquareSolid } from 'react-icons/lia';
+import { PiSquareSplitHorizontalFill, PiSquaresFourFill } from 'react-icons/pi';
 
 const buttonClasses =
   'flex justify-center items-center border-l border-zinc-200 w-20 h-20 transition-colors hover:bg-neutral-900 hover:text-white';
@@ -20,7 +22,7 @@ export const GridControls = () => {
             setItemsPerRow('1');
           }}
         >
-          1
+          <LiaSquareSolid size={24} />
         </button>
       </li>
 
@@ -35,7 +37,7 @@ export const GridControls = () => {
             setItemsPerRow('2');
           }}
         >
-          2
+          <PiSquareSplitHorizontalFill size={24} />
         </button>
       </li>
 
@@ -50,7 +52,7 @@ export const GridControls = () => {
             setItemsPerRow('4');
           }}
         >
-          4
+          <PiSquaresFourFill size={24} />
         </button>
       </li>
     </ul>

@@ -4,12 +4,14 @@ import { css } from '@emotion/css';
 import { useContext, useEffect, useState } from 'react';
 import { uiContext } from '@/contexts';
 import Spinner from '@/components/common/client/Spinner';
+import Error404 from '@/components/common/client/Error404';
 
 export const ProductGrid = () => {
   const { itemsPerRow, pagination, setPagination } = useContext(uiContext);
   const { perPage, page } = pagination;
   const { products, loading, error } = useProducts();
   const [paginatedProducts, setPaginatedProducts] = useState([]);
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
     const newPaginatedProducts = products
@@ -17,16 +19,18 @@ export const ProductGrid = () => {
       .splice(perPage * (page - 1), perPage);
 
     setPaginatedProducts(newPaginatedProducts);
-  }, [products, perPage, page]);
+    setAnimate(true);
+    const timer = setTimeout(() => setAnimate(false), 1000);
+    return () => clearTimeout(timer);
+  }, [products, perPage, page, itemsPerRow]);
 
-  const gridCssClass = css`
-    display: grid;
-    row-gap: 32px;
-
-    @media (min-width: 1024px) {
-      grid-template-columns: repeat(${itemsPerRow}, 1fr);
-    }
-  `;
+  const gridCssClass = `grid row-gap-8 ${
+    itemsPerRow === '1'
+      ? 'grid-cols-1'
+      : itemsPerRow === '2'
+      ? 'grid-cols-2'
+      : 'grid-cols-4'
+  } ${animate ? 'animate-fadeIn' : ''}`;
 
   if (loading) {
     return (
@@ -37,11 +41,11 @@ export const ProductGrid = () => {
   }
 
   if (error.trim().length > 0) {
-    return <div className="container mx-auto px-4">{error}</div>;
+    return <Error404></Error404>;
   }
 
   return (
-    <ul className={gridCssClass}>
+    <ul className={`${gridCssClass} gap-2`}>
       {paginatedProducts.map((product) => {
         const { id } = product;
 

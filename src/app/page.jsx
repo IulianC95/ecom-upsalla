@@ -13,12 +13,12 @@ export default function Home() {
         <CartControls></CartControls>
       </header>
 
-      <section>
-        <Pagination></Pagination>
-
+      <section className="py-8">
         <ProductGrid></ProductGrid>
 
-        <Pagination></Pagination>
+        <div className="flex justify-center py-10">
+          <Pagination></Pagination>
+        </div>
       </section>
 
       <section></section>

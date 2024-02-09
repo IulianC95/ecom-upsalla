@@ -11,20 +11,20 @@ export const ProductTile = (props) => {
   const productUrl = `/products/${id}`;
 
   return (
-    <article className="text-center">
-      <header>
+    <article className="w-full h-full flex flex-col items-center justify-between gap-4 animate-fadeIn pb-8 hover:scale-105 transition-transform duration-300">
+      <header className="text-center flex flex-col gap-4 h-full justify-center">
         <Link href={productUrl} title={title}>
           <Image
-            width={200}
             height={200}
+            width={200}
             src={imageUrl}
             alt={`Image for product ${title}`}
-            objectFit="contain"
             className="inline"
+            objectFit="contain"
           />
         </Link>
 
-        <h1>
+        <h1 className="uppercase text-zinc-400 mb-2">
           <Link
             href={productUrl}
             title={title}

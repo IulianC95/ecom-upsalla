@@ -3,6 +3,7 @@
 @tailwind utilities;
 
 @import url(./style/loader.css);
+@import url(./style//Error404.css);
 
 :root {
   --mobileHeaderHeight: 60px;
@@ -57,4 +58,9 @@ body {
     bottom: 0;
     width: var(--desktopHeaderSize);
   }
+}
+
+.img-size {
+  width: 200px;
+  height: 220px;
 }

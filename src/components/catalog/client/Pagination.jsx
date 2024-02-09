@@ -33,8 +33,8 @@ export const Pagination = () => {
               <button
                 type="button"
                 title={`Page ${pageIndex}`}
-                className={`border border-zinc-200 p-2 hover:bg-black hover:text-white transition-colors ${
-                  pageIndex === page ? 'bg-black text-white' : ''
+                className={`p-2 transition-colors ${
+                  pageIndex === page ? 'rounded-md bg-black text-white' : ''
                 }`}
                 onClick={() => {
                   setPagination({
