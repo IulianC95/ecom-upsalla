@@ -3,12 +3,7 @@ import { ProductTile } from '.';
 import { css } from '@emotion/css';
 import { useContext, useEffect, useState } from 'react';
 import { uiContext } from '@/contexts';
-
-const Spinner = () => (
-  <div className="flex justify-center items-center h-screen">
-    <p className="loader"></p>
-  </div>
-);
+import Spinner from '@/components/common/client/Spinner';
 
 export const ProductGrid = () => {
   const { itemsPerRow, pagination, setPagination } = useContext(uiContext);
@@ -34,7 +29,11 @@ export const ProductGrid = () => {
   `;
 
   if (loading) {
-    return <Spinner />;
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner></Spinner>;
+      </div>
+    );
   }
 
   if (error.trim().length > 0) {

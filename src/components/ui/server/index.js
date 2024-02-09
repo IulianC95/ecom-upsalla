@@ -1,2 +1,2 @@
-
-export * from './Separator'
+export * from './Separator';
+export * from './StarRating';

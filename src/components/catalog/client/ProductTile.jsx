@@ -1,7 +1,7 @@
 import { AddToCart } from '@/components/cart/client';
+import StarRating from '@/components/ui/server/StarRating';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaRegStar, FaStar, FaStarHalfAlt } from 'react-icons/fa';
 
 export const ProductTile = (props) => {
   const { product } = props;
@@ -9,20 +9,6 @@ export const ProductTile = (props) => {
   const { title, image: imageUrl, price, id, rating } = product;
 
   const productUrl = `/products/${id}`;
-
-  const renderRating = (rating) => {
-    const fullStars = Math.floor(rating.rate);
-    const halfStar = rating.rate % 1 > 0.5 ? 1 : 0;
-    const emptyStars = 5 - fullStars - halfStar;
-
-    return (
-      <div className="flex justify-center text-orange-400">
-        {Array(fullStars).fill(<FaStar />)}
-        {halfStar ? <FaStarHalfAlt /> : ''}
-        {Array(emptyStars).fill(<FaRegStar />)}
-      </div>
-    );
-  };
 
   return (
     <article className="text-center">
@@ -35,7 +21,7 @@ export const ProductTile = (props) => {
             alt={`Image for product ${title}`}
             objectFit="contain"
             className="inline"
-          ></Image>
+          />
         </Link>
 
         <h1>
@@ -53,11 +39,13 @@ export const ProductTile = (props) => {
         <div className="text-zinc-900 font-light">${price}</div>
       </section>
       <section>
-        <div className="text-zinc-900 font-light"> {renderRating(rating)}</div>
+        <div className="text-zinc-900 font-light">
+          <StarRating rating={rating} />
+        </div>
       </section>
 
       <footer>
-        <AddToCart product={product}></AddToCart>
+        <AddToCart product={product} />
       </footer>
     </article>
   );
