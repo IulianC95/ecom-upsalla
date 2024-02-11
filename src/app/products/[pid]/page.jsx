@@ -1,11 +1,12 @@
 import { AddToCart, CartControls } from '@/components/cart/client';
 import { baseUrl } from '@/index';
-import Link from 'next/link';
+
 import { redirect } from 'next/navigation';
-import { IoReturnDownBackSharp } from 'react-icons/io5';
+
 import Image from 'next/image';
 import StarRating from '@/components/ui/server/StarRating';
 import { RelatedProducts } from '@/components/catalog/client';
+import ContinueShopping from '@/components/cart/client/ContinueShopping';
 
 const getProduct = async (productId) => {
   return fetch(`${baseUrl}/products/${productId}`)
@@ -25,23 +26,13 @@ export default async function ProductPage({ params }) {
 
   return (
     <>
-      <head>
-        <title>{product.title}</title>
-      </head>
+      <title>{product.title}</title>
+
       <div className="container px-4 mx-auto">
         <header className="container px-4 lg:px-0 mx-auto flex justify-between">
-          <div>
-            <Link
-              href="../../"
-              className="gap-2 flex items-center justify-center border border-black text-black text-center lg:text-xl p-7 transition-colors hover:bg-amber-600 cursor-pointer hover:text-white hover:border-amber-600"
-            >
-              <IoReturnDownBackSharp size={30} />
-              <p> Back to shop </p>
-            </Link>
-          </div>
-          <div>
-            <CartControls></CartControls>
-          </div>
+          <ContinueShopping></ContinueShopping>
+
+          <CartControls></CartControls>
         </header>
 
         <section className="mt-16 mb-32 container px-4 lg:px-0 mx-auto grid gap-8 lg:grid-cols-12">

@@ -21,6 +21,9 @@ module.exports = {
       animation: {
         fadeIn: 'fadeIn 0.5s ease-in-out forwards',
       },
+      backgroundImage: {
+        promo: "url('/images/promo.jpg')",
+      },
     },
   },
   plugins: [],

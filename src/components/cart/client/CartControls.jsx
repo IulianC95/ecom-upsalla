@@ -20,8 +20,7 @@ export const CartControls = () => {
           className="w-20 aspect-square flex justify-center items-center"
         >
           <span className="relative">
-            {/* Cart - add react icon */}
-            <span className=" absolute block w-6 bg-red-500 text-white text-sm -top-4 -right-4 rounded-full text-center">
+            <span className="absolute block w-6 bg-red-500 text-white text-sm -top-4 -right-4 rounded-full text-center">
               {totalQuantity}
             </span>
 

@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { uiContext } from '@/contexts';
 import Spinner from '@/components/common/client/Spinner';
 import Error404 from '@/components/common/client/Error404';
+import ProductsPerPage from './ProductsPerPage';
 
 export const ProductGrid = () => {
   const { itemsPerRow, pagination, setPagination } = useContext(uiContext);
@@ -24,13 +25,19 @@ export const ProductGrid = () => {
     return () => clearTimeout(timer);
   }, [products, perPage, page, itemsPerRow]);
 
-  const gridCssClass = `grid row-gap-8 ${
-    itemsPerRow === '1'
-      ? 'grid-cols-1'
-      : itemsPerRow === '2'
-      ? 'grid-cols-2'
-      : 'grid-cols-4'
-  } ${animate ? 'animate-fadeIn' : ''}`;
+  const gridCssClass = css`
+    display: grid;
+    row-gap: 32px;
+    animation: ${animate ? 'fadeIn 1s' : 'none'};
+
+    @media (min-width: 1024px) {
+      grid-template-columns: repeat(${itemsPerRow}, 1fr);
+    }
+  `;
+
+  const handleProductsPerPageChange = (newPerPage) => {
+    setPagination({ ...pagination, perPage: newPerPage, page: 1 });
+  };
 
   if (loading) {
     return (
@@ -45,16 +52,19 @@ export const ProductGrid = () => {
   }
 
   return (
-    <ul className={`${gridCssClass} gap-2`}>
-      {paginatedProducts.map((product) => {
-        const { id } = product;
+    <>
+      <ProductsPerPage onChange={handleProductsPerPageChange} />
+      <ul className={`${gridCssClass} gap-2`}>
+        {paginatedProducts.map((product) => {
+          const { id } = product;
 
-        return (
-          <li key={id}>
-            <ProductTile product={product}></ProductTile>
-          </li>
-        );
-      })}
-    </ul>
+          return (
+            <li key={id}>
+              <ProductTile product={product}></ProductTile>
+            </li>
+          );
+        })}
+      </ul>
+    </>
   );
 };

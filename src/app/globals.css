@@ -30,6 +30,7 @@ body {
   background: var(--dark);
   color: var(--white);
   grid-area: header;
+  z-index: 100;
 }
 
 .main-area {
@@ -63,4 +64,8 @@ body {
 .img-size {
   width: 200px;
   height: 220px;
+}
+
+.coupon-btn {
+  border: 2px solid black;
 }

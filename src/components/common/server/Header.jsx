@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { OffCanvasMenu } from "../client";
-import { GiShop } from "react-icons/gi";
-import { FaFacebookF, FaGoogle } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
+import Link from 'next/link';
+import { OffCanvasMenu } from '../client';
+import { GiShop } from 'react-icons/gi';
+import { FaFacebookF, FaGoogle } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
 
 // consider jsx is anormal data type
 
@@ -34,7 +34,10 @@ export const Header = () => {
   return (
     <div className="p-4 bg-neutral-900 text-white flex lg:flex-col justify-between h-full items-center">
       {/* forced exaple */}
-      <Link href="/" className="relative z-10 transition-colors hover:text-amber-600">
+      <Link
+        href="/"
+        className="relative z-10 transition-colors hover:text-amber-600"
+      >
         {jsxLogo}
       </Link>
 
