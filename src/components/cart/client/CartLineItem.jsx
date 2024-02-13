@@ -6,9 +6,27 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MdOutlineDeleteForever } from 'react-icons/md';
 import { useState } from 'react';
+import { useAddToCart } from '@/hooks/cart/useAddToCart';
+import { useRemoveFromCart } from '@/hooks/cart/useRemoveFromCart';
 
-export const CartLineItem = ({ product, removeFromCart }) => {
+export const CartLineItem = ({ product }) => {
   const { quantity: initialQuantity, productId } = product;
+
+  const { addToCart } = useAddToCart();
+
+  const { removeFromCart } = useRemoveFromCart();
+
+  const onClick2 = () => {
+    removeFromCart(id);
+    setSquantity((prevQuantity) =>
+      prevQuantity > 1 ? prevQuantity - 1 : prevQuantity,
+    );
+  };
+
+  const onClick = () => {
+    addToCart(id);
+    setSquantity((prevQuantity) => prevQuantity + 1);
+  };
   const [quantity, setSquantity] = useState(initialQuantity);
   const { product: fullProduct, loading } = useProduct(productId);
 
@@ -30,21 +48,11 @@ export const CartLineItem = ({ product, removeFromCart }) => {
     );
   }
 
-  const { title, price, image, rating } = fullProduct;
+  const { title, price, image, rating, id } = fullProduct;
 
   const rate = fullProduct.rating.rate;
 
   const count = fullProduct.rating.count;
-
-  const decreaseQuantity = () => {
-    setSquantity((prevQuantity) =>
-      prevQuantity > 1 ? prevQuantity - 1 : prevQuantity,
-    );
-  };
-
-  const increaseQuantity = () => {
-    setSquantity((prevQuantity) => prevQuantity + 1);
-  };
 
   return (
     <tr className="border-b text-black">
@@ -88,7 +96,7 @@ export const CartLineItem = ({ product, removeFromCart }) => {
       <td style={{ height: '100px' }} className="text-center px-2">
         <div className="border border-black flex items-center justify-center gap-1">
           <button
-            onClick={decreaseQuantity}
+            onClick={onClick2}
             aria-label="Decrease quantity"
             className="text-xl font-semibold hover:bg-gray-200 p-2"
           >
@@ -96,7 +104,7 @@ export const CartLineItem = ({ product, removeFromCart }) => {
           </button>
           <span className="px-4">{quantity}</span>
           <button
-            onClick={increaseQuantity}
+            onClick={onClick}
             aria-label="Increase quantity"
             className="text-xl font-semibold hover:bg-gray-200 p-2"
           >
@@ -105,7 +113,7 @@ export const CartLineItem = ({ product, removeFromCart }) => {
         </div>
       </td>
 
-      <td className="text-center px-2">{(price * quantity).toFixed(2)}</td>
+      <td className="text-center px-2">${(price * quantity).toFixed(2)}</td>
     </tr>
   );
 };
