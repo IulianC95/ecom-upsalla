@@ -11,17 +11,24 @@ export const ProductTile = (props) => {
   const productUrl = `/products/${id}`;
 
   return (
-    <article className="w-full h-full flex flex-col items-center justify-between gap-4 animate-fadeIn pb-8 hover:scale-105 transition-transform duration-300">
+    <article className="w-1/2 h-full flex flex-col items-center justify-between gap-4 animate-fadeIn pb-8 hover:scale-105 transition-transform duration-300">
       <header className="text-center flex flex-col gap-4 h-full justify-center">
-        <Link href={productUrl} title={title}>
-          <Image
-            height={200}
-            width={200}
-            src={imageUrl}
-            alt={`Image for product ${title}`}
-            className="inline"
-            objectFit="contain"
-          />
+        <Link
+          href={productUrl}
+          title={title}
+          className="flex items-center justify-center"
+        >
+          <div className="relative h-200 w-200">
+            {' '}
+            {/* Set fixed dimensions here */}
+            <Image
+              src={imageUrl}
+              alt={`Image for product ${title}`}
+              layout="fill" // Use fill layout
+              objectFit="contain" // Cover the container
+              className="rounded-lg" // You can apply additional styles as needed
+            />
+          </div>
         </Link>
 
         <h1 className="uppercase text-zinc-400 mb-2">

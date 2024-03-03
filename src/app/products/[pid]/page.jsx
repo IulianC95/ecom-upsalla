@@ -5,8 +5,9 @@ import { redirect } from 'next/navigation';
 
 import Image from 'next/image';
 import StarRating from '@/components/ui/server/StarRating';
-import { RelatedProducts } from '@/components/catalog/client';
+
 import ContinueShopping from '@/components/cart/client/ContinueShopping';
+import { RelatedProducts } from '@/components/catalog/client';
 
 const getProduct = async (productId) => {
   return fetch(`${baseUrl}/products/${productId}`)
@@ -20,9 +21,7 @@ const getProduct = async (productId) => {
 
 export default async function ProductPage({ params }) {
   const productId = params.pid;
-  const product = await fetch(
-    `https://fakestoreapi.com/products/${productId}`,
-  ).then((res) => res.json());
+  const product = await getProduct(productId);
 
   return (
     <>

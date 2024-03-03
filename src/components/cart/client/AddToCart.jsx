@@ -1,6 +1,7 @@
 import { cartContext } from '@/contexts';
 import { useCartActions } from '@/hooks/cart';
 import { useContext } from 'react';
+import { Loading } from '.';
 
 export const AddToCart = ({ product }) => {
   const { title, id } = product;
@@ -27,18 +28,20 @@ export const AddToCart = ({ product }) => {
   return (
     <button
       type="button"
-      className="bg-black text-white uppercase font-medium text-sm py-3 px-6 hover:bg-amber-800 transition-colors"
+      className="bg-black text-white uppercase font-medium text-sm py-3 px-6 hover:bg-amber-800 transition-colors relative"
       disabled={busy}
       title={
         isProductInCart ? `Remove ${title} from cart` : `Add ${title} to cart`
       }
       onClick={onClick}
     >
-      {busy
-        ? '...loading'
-        : isProductInCart
-        ? 'Remove from Cart'
-        : 'Add to Cart'}
+      {busy ? (
+        <Loading />
+      ) : isProductInCart ? (
+        'Remove from Cart'
+      ) : (
+        'Add to Cart'
+      )}
     </button>
   );
 };

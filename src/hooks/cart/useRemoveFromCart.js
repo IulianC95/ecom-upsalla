@@ -6,41 +6,33 @@ export const useRemoveFromCart = () => {
   const { setCartProducts, cartProducts, cartId } = useContext(cartContext);
   const [loading, setLoading] = useState(false);
 
-  const operation = (productId, quantity = 1) => {
-    // clone cart products
+  const removeFromCart = (productId, removeAll = false) => {
     const newProducts = [...cartProducts];
+    const productIndex = newProducts.findIndex(
+      (product) => product.productId === productId,
+    );
 
-    // find product in cart
-    const cartProduct = newProducts.find((product) => {
-      return product.productId === productId;
-    });
-
-    if (cartProduct) {
-      cartProduct.quantity -= quantity;
+    if (productIndex !== -1) {
+      if (removeAll) {
+        newProducts.splice(productIndex, 1);
+      } else {
+        newProducts[productIndex].quantity -= 1;
+        if (newProducts[productIndex].quantity <= 0) {
+          newProducts.splice(productIndex, 1);
+        }
+      }
     } else {
       return;
-    }
-
-    // one more case:
-    if (cartProduct.quantity <= 0) {
-      const index = newProducts.findIndex((product) => {
-        return product.productId === productId;
-      });
-
-      // splice mutates
-      newProducts.splice(index, 1);
     }
 
     setLoading(true);
     fetch(`${baseUrl}/carts/${cartId}`, {
       method: 'PUT',
-      body: JSON.stringify,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ products: newProducts }),
     })
-      .then((response) => {
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((cart) => {
-        console.log(cart);
         setCartProducts(newProducts);
       })
       .finally(() => {
@@ -48,5 +40,5 @@ export const useRemoveFromCart = () => {
       });
   };
 
-  return { removeFromCart: operation, loading };
+  return { removeFromCart, loading };
 };

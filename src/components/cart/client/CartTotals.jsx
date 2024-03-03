@@ -2,23 +2,28 @@ import { useContext, useState, useEffect } from 'react';
 import { cartContext } from '@/contexts';
 import { useProducts } from '@/hooks';
 
-export const CartTotals = () => {
+export const CartTotals = ({ discount }) => {
   const { cartProducts } = useContext(cartContext);
   const { products, loading } = useProducts();
   const [totalWithShipping, setTotalWithShipping] = useState(0);
+
   const shippingCost = 49;
   useEffect(() => {
     let total = cartProducts.reduce((total, { quantity, productId }) => {
       const product = products.find((product) => productId === product.id);
       if (product) {
-        const { price } = product;
-        return total + quantity * price;
+        return total + quantity * product.price;
       }
       return total;
     }, 0);
 
-    setTotalWithShipping(total);
-  }, [cartProducts, products]);
+    const totalAfterDiscount = discount ? total * (1 - discount) : total;
+
+    const finalTotal = document.getElementById('express')?.checked
+      ? totalAfterDiscount + shippingCost
+      : totalAfterDiscount;
+    setTotalWithShipping(finalTotal);
+  }, [cartProducts, products, discount, shippingCost]);
 
   if (loading) {
     return '...loading';
@@ -29,6 +34,8 @@ export const CartTotals = () => {
       const product = products.find((product) => productId === product.id);
       return product ? total + quantity * product.price : total;
     }, 0);
+
+    totalBase *= 1 - discount;
 
     if (event.target.id === 'express') {
       setTotalWithShipping(

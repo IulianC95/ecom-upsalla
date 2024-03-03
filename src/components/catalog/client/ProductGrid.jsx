@@ -1,11 +1,9 @@
 import { useProducts } from '@/hooks';
-import { ProductTile } from '.';
+import { ProductTile, ProductsPerPage } from '.';
 import { css } from '@emotion/css';
 import { useContext, useEffect, useState } from 'react';
 import { uiContext } from '@/contexts';
-import Spinner from '@/components/common/client/Spinner';
-import Error404 from '@/components/common/client/Error404';
-import ProductsPerPage from './ProductsPerPage';
+import { Error404, Spinner } from '@/components/common/client';
 
 export const ProductGrid = () => {
   const { itemsPerRow, pagination, setPagination } = useContext(uiContext);
@@ -13,17 +11,25 @@ export const ProductGrid = () => {
   const { products, loading, error } = useProducts();
   const [paginatedProducts, setPaginatedProducts] = useState([]);
   const [animate, setAnimate] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('all');
 
   useEffect(() => {
-    const newPaginatedProducts = products
+    const filteredProducts =
+      selectedCategory === 'all'
+        ? products
+        : products.filter((product) => product.category === selectedCategory);
+
+    const newPaginatedProducts = filteredProducts
       .slice()
       .splice(perPage * (page - 1), perPage);
 
     setPaginatedProducts(newPaginatedProducts);
     setAnimate(true);
     const timer = setTimeout(() => setAnimate(false), 1000);
+    setPagination({ ...pagination, total: filteredProducts.length });
     return () => clearTimeout(timer);
-  }, [products, perPage, page, itemsPerRow]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [products, perPage, page, itemsPerRow, selectedCategory]);
 
   const gridCssClass = css`
     display: grid;
@@ -53,13 +59,28 @@ export const ProductGrid = () => {
 
   return (
     <>
-      <ProductsPerPage onChange={handleProductsPerPageChange} />
+      <section className="flex flex-col justify-center items-center">
+        <ProductsPerPage onChange={handleProductsPerPageChange} />
+        <div>
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="mb-4"
+          >
+            <option value="all">All Categories</option>
+            <option value="men's clothing">Men Clothing</option>
+            <option value="women's clothing">Women Clothing</option>
+            <option value="jewelery">Jewelery</option>
+            <option value="electronics">Electronics</option>
+          </select>
+        </div>
+      </section>
       <ul className={`${gridCssClass} gap-2`}>
         {paginatedProducts.map((product) => {
           const { id } = product;
 
           return (
-            <li key={id}>
+            <li key={id} className="flex justify-center">
               <ProductTile product={product}></ProductTile>
             </li>
           );

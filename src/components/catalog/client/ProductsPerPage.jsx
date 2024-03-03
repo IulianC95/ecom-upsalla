@@ -2,7 +2,7 @@ import React from 'react';
 
 const options = [10, 12, 14, 16, 20];
 
-const ProductsPerPage = ({ onChange }) => {
+export const ProductsPerPage = ({ onChange }) => {
   return (
     <div className="pb-10 text-center flex justify-center gap-2">
       <label htmlFor="perPage">Products per page:</label>
@@ -20,5 +20,3 @@ const ProductsPerPage = ({ onChange }) => {
     </div>
   );
 };
-
-export default ProductsPerPage;

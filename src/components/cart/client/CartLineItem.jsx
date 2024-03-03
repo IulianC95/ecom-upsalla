@@ -1,4 +1,3 @@
-import Spinner from '@/components/common/client/Spinner';
 import StarRating from '@/components/ui/server/StarRating';
 import { useProduct } from '@/hooks';
 import { baseUrl } from '@/index';
@@ -8,6 +7,7 @@ import { MdOutlineDeleteForever } from 'react-icons/md';
 import { useState } from 'react';
 import { useAddToCart } from '@/hooks/cart/useAddToCart';
 import { useRemoveFromCart } from '@/hooks/cart/useRemoveFromCart';
+import { Spinner } from '@/components/common/client';
 
 export const CartLineItem = ({ product }) => {
   const { quantity: initialQuantity, productId } = product;
@@ -18,17 +18,22 @@ export const CartLineItem = ({ product }) => {
 
   const onClick2 = () => {
     removeFromCart(id);
-    setSquantity((prevQuantity) =>
+    setQuantity((prevQuantity) =>
       prevQuantity > 1 ? prevQuantity - 1 : prevQuantity,
     );
   };
 
   const onClick = () => {
     addToCart(id);
-    setSquantity((prevQuantity) => prevQuantity + 1);
+    setQuantity((prevQuantity) => prevQuantity + 1);
   };
-  const [quantity, setSquantity] = useState(initialQuantity);
+
+  const [quantity, setQuantity] = useState(initialQuantity);
   const { product: fullProduct, loading } = useProduct(productId);
+
+  const deleteFromCart = () => {
+    removeFromCart(productId, true);
+  };
 
   if (loading) {
     return (
@@ -57,7 +62,11 @@ export const CartLineItem = ({ product }) => {
   return (
     <tr className="border-b text-black">
       <td>
-        <button type="button" title={`Remove ${title} from cart`}>
+        <button
+          type="button"
+          title={`Remove ${title} from cart`}
+          onClick={deleteFromCart}
+        >
           <MdOutlineDeleteForever size={40} />
         </button>
       </td>

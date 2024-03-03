@@ -7,10 +7,9 @@ export const CartControls = () => {
   const obj = useContext(cartContext);
   const { cartProducts } = useContext(cartContext);
 
-  const totalQuantity = cartProducts.reduce(
-    (total, item) => total + item.quantity,
-    0,
-  );
+  const totalQuantity = cartProducts.reduce((total, item) => {
+    return total + item.quantity;
+  }, 0);
 
   return (
     <ul className="border border-zinc-200 transition-colors text-black hover:bg-black hover:text-white">

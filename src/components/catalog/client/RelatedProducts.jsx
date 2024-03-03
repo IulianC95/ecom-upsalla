@@ -2,24 +2,26 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { AddToCart } from '@/components/cart/client';
-import Spinner from '@/components/common/client/Spinner';
+import { Spinner } from '@/components/common/client';
+import { useCategory } from '@/hooks';
 
 export const RelatedProducts = ({ category, currentProductId }) => {
-  const [relatedProducts, setRelatedProducts] = useState([]);
+  const { relatedProducts, loading, error } = useCategory(
+    category,
+    currentProductId,
+  );
 
-  useEffect(() => {
-    fetch(`https://fakestoreapi.com/products/category/${category}`)
-      .then((res) => res.json())
-      .then((data) => {
-        const filteredData = data
-          .filter((product) => product.id !== currentProductId)
-          .slice(0, 3);
-        setRelatedProducts(filteredData);
-      })
-      .catch((error) => {
-        console.error('An error has occured:', error);
-      });
-  }, [category, currentProductId]);
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>; // Sau orice altă tratare a erorilor preferi
+  }
 
   return (
     <ul className="flex flex-col lg:flex-row items-center">

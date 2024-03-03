@@ -1,5 +1,4 @@
 import { CartControls } from '@/components/cart/client';
-import ContinueShopping from '@/components/cart/client/ContinueShopping';
 import {
   GridControls,
   Pagination,

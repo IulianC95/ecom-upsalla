@@ -24,6 +24,12 @@ module.exports = {
       backgroundImage: {
         promo: "url('/images/promo.jpg')",
       },
+      width: {
+        200: '200px',
+      },
+      height: {
+        200: '200px',
+      },
     },
   },
   plugins: [],

@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
 
-const Error404 = () => {
+export const Error404 = () => {
   return (
     <div className="Error404-container">
       <div className="Error404-text">
@@ -16,5 +16,3 @@ const Error404 = () => {
     </div>
   );
 };
-
-export default Error404;
