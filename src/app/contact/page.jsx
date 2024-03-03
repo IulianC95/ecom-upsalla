@@ -10,7 +10,7 @@ export default function ContactPage() {
   const defaultOptions = {
     loop: false,
     autoplay: true,
-    animationData: animationData, // Asigură-te că animationData este importat corect
+    animationData: animationData,
     rendererSettings: {
       preserveAspectRatio: 'xMidYMid slice',
     },
@@ -29,10 +29,9 @@ export default function ContactPage() {
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsAnimationActive(true);
-    // Logică suplimentară pentru trimiterea formularului
   };
   return (
-    <section className="container px-4 mx-auto w-full mt-10 flex flex-col lg:flex-row justify-start items-start text-black gap-10">
+    <section className="container px-4 mx-auto w-full mt-10 flex flex-col lg:flex-row justify-start items-start text-black gap-10 mb-6">
       <div className="lg:w-1/2 flex flex-col justify-start gap-4">
         <h1 className="uppercase text-3xl text-black font-semibold text-center lg:text-start">
           Contact Info
@@ -67,7 +66,7 @@ export default function ContactPage() {
         <h2 className="uppercase text-3xl text-black font-semibold text-center lg:text-start">
           Contact Form
         </h2>
-        {!isAnimationActive ? ( // Afișează formularul numai dacă animația nu este activă
+        {!isAnimationActive ? (
           <form className="flex flex-col gap-10" onSubmit={handleSubmit}>
             <div className="flex gap-10 flex-col lg:flex-row">
               <input
