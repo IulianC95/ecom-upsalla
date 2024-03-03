@@ -12,10 +12,12 @@
     "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.3",
     "axios": "^1.6.5",
+    "lottie-web": "^5.12.2",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.0.1",
+    "react-lottie": "^1.2.4",
     "usehooks-ts": "^2.12.1"
   },
   "devDependencies": {

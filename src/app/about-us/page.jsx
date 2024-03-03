@@ -1,18 +1,39 @@
-import Image from 'next/image';
+'use client';
+import { useEffect, useState } from 'react';
+import Lottie from 'react-lottie';
 
 export default function AboutUs() {
+  const [animationData, setAnimationData] = useState(null);
+
+  useEffect(() => {
+    const loadAnimationData = async () => {
+      const response = await fetch('/animations/about-us.json');
+      const data = await response.json();
+      setAnimationData(data);
+    };
+
+    loadAnimationData();
+  }, []);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   return (
     <section className="container mx-auto flex flex-col items-center justify-between gap-10">
-      <Image
-        src="/images/about-us.webp"
-        alt="Empty cart"
-        width={1500}
-        height={500}
-      ></Image>
+      <div className="w-full flex justify-center ">
+        <Lottie options={defaultOptions} className="w-full" />
+      </div>
 
-      <h1 className="text-3xl font-semibold">Welcome to Our World</h1>
+      <h1 className="lg:text-3xl text-2xl font-semibold">
+        Welcome to Our World
+      </h1>
 
-      <div className="w-2/3 text-xl flex flex-col gap-8">
+      <div className="w-2/3 lg:text-xl text-base flex flex-col gap-8 pb-8">
         <p>
           We are more than just an e-commerce platform; we are a family
           committed to delivering excellence and joy right to your doorstep.
