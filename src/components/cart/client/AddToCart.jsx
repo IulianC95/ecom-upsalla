@@ -28,7 +28,7 @@ export const AddToCart = ({ product }) => {
   return (
     <button
       type="button"
-      className="bg-black text-white uppercase font-medium text-sm py-3 px-6 hover:bg-amber-800 transition-colors relative"
+      className="bg-black text-white uppercase font-medium text-sm py-3 px-6 hover:bg-amber-800 transition-colors relative text-nowrap"
       disabled={busy}
       title={
         isProductInCart ? `Remove ${title} from cart` : `Add ${title} to cart`
